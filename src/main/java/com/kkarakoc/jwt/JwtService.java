@@ -2,6 +2,8 @@ package com.kkarakoc.jwt;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,11 @@ public class JwtService {
 	private static final String SECRET_KEY = "tYsyF+X+sVXPZ/dUBE9IWE7TFdPwxTQhuCrxsCgEnRY=";
 
 	public String generateToken(UserDetails userDetails) {
+		
+		Map<String, String> claimsMap = new HashMap<>();
+		
+		 
+		
 		return Jwts.builder().setSubject(userDetails.getUsername()).setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 2))
 				.signWith(getKey(), SignatureAlgorithm.HS256).compact();
@@ -34,6 +41,11 @@ public class JwtService {
 	public String getUsernameByToken(String token) {
 		return exportToken(token, Claims::getSubject);
 
+	}
+	
+	public boolean isTokenExpired(String token) {
+		Date expiredDate =   exportToken(token, Claims::getExpiration);
+		return new Date().before(expiredDate); // token değeri şuanki zamandan küçükse	
 	}
 
 	public Key getKey() {
