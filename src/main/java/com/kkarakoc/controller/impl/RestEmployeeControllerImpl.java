@@ -10,9 +10,6 @@ import com.kkarakoc.controller.IRestEmployeeController;
 import com.kkarakoc.dto.DtoEmployee;
 import com.kkarakoc.service.IEmployeeService;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-
 @RestController
 @RequestMapping("/employee")
 public class RestEmployeeControllerImpl implements IRestEmployeeController {
@@ -22,7 +19,7 @@ public class RestEmployeeControllerImpl implements IRestEmployeeController {
 
 	@GetMapping("/{id}")
 	@Override
-	public DtoEmployee findEmployeeById(@Valid @NotEmpty @PathVariable(value = "id") Long id) {
+	public DtoEmployee findEmployeeById(@PathVariable(value = "id") Long id) {
 
 		return employeeService.findEmployeeById(id);
 	}

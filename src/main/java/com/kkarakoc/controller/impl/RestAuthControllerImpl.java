@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kkarakoc.controller.IRestAuthController;
 import com.kkarakoc.dto.DtoUser;
 import com.kkarakoc.jwt.AuthRequest;
+import com.kkarakoc.jwt.AuthResponse;
 import com.kkarakoc.service.IAuthService;
 
 import jakarta.validation.Valid;
@@ -24,6 +25,12 @@ public class RestAuthControllerImpl implements IRestAuthController {
 	public DtoUser register(@Valid @RequestBody AuthRequest request) {
 		// TODO Auto-generated method stub
 		return authService.register(request);
+	}
+
+	@PostMapping("/authenticate")
+	@Override
+	public AuthResponse authenticate(@Valid @RequestBody AuthRequest request) {
+	 return  authService.authenticate(request);
 	}
 
 	
